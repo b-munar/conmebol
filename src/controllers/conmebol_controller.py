@@ -26,6 +26,9 @@ class DateGameController(Resource):
 
         if not len(conmebol_create_dump['games']) == 5:
             return "there are 5 games to date", 400
+        
+        if conmebol_create_dump['date']['id'] < 1 or conmebol_create_dump['date']['id'] > 18:
+            return "the id is out of the date range", 400
 
         session = Session()
         
