@@ -31,6 +31,12 @@ class DateGameController(Resource):
             return "the id is out of the date range", 400
 
         session = Session()
+
+        query_date = session.query(DateModel).filter(DateModel.id==conmebol_create_dump['date']['id']).count()
+
+        if query_date>0:
+            session.close()
+            return "date already exists", 400
         
         new_date = DateModel(**conmebol_create_dump['date'])
         session.add(new_date)
